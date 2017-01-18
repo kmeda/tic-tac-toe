@@ -1,0 +1,51 @@
+.main-window
+  width: 400px
+  height: 390px
+  background: rgba(255,255,255,0.8)
+  border-radius: 10px
+  box-shadow: inset -1px 1px 10px rgba(0,0,0,.2), inset 1px -1px 10px rgba(0,0,0,.2), 1px 10px 5px rgba(0,0,0,.4), 4px 3px 8px rgba(0,0,0,.4), 5px 10px 10px rgba(0,0,0,.2), -5px 10px 10px rgba(0,0,0,.4)
+  padding: 40px 0 0
+  position: relative
+  .header
+    position: absolute
+    width: 400px
+    height: 40px
+    top: 0
+    .player-1, .player-2, .computer, .resetAll
+      //display: none
+      font-family: Courgette
+      font-weight: bold
+    .player-1, .player-2, .computer
+      margin-left: 30px
+      margin-top: 5px
+      float: left
+      font-size: 0.85em
+
+    .resetAll
+      //display: none
+      margin: 12px 20px
+      float: right
+      font-size: 1em
+      border-radius: 10px
+      cursor: pointer
+      //border: none
+      background: none
+      border: 2px dashed transparent
+      &:hover
+        border: 2px dashed grey
+      &:focus
+        outline: none
+
+
+
+
+  .board-container
+    width: 350px
+    height: 350px
+    background:  rgba(0,0,0,0.5)
+    margin: auto
+    background: rgba(0,0,0,0.1) radial-gradient(center, rgba(0,0,0,0.6), rgba(0,0,0,0.9))
+.player-2
+  display: none
+.computer
+  //display: none
