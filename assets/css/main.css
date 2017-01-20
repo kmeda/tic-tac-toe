@@ -51,12 +51,10 @@
 
 .board-container {
   background: rgba(0, 0, 0, 0.1) -webkit-radial-gradient(center, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9));
-  background: rgba(0, 0, 0, 0.1) radial-gradient(center, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9));
-  z-index: 9; }
+  background: rgba(0, 0, 0, 0.1) radial-gradient(center, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)); }
 
 .game-options, .symbol-select {
-  color: white;
-  z-index: 10; }
+  color: white; }
   .game-options .prompt, .symbol-select .prompt {
     text-align: center;
     margin: 100px 25px;
@@ -111,17 +109,24 @@
       border-bottom: 10px solid transparent;
       border-right: 10px solid white; }
 
-.game-options {
-  display: none; }
+.symbol-select .symbol-x, .symbol-select .symbol-O {
+  font-size: 2.5em; }
 
-.symbol-select {
-  display: none;
-  z-index: 2; }
-  .symbol-select .symbol-x, .symbol-select .symbol-O {
-    font-size: 2.5em; }
-
-#canvas {
-  z-index: 99; }
+.boxes {
+  display: inline-block;
+  position: absolute;
+  padding: 0;
+  margin: 12px 12px;
+  width: 95%;
+  height: 95%; }
+  .boxes .box {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0 5px 3px 2px;
+    width: 31%;
+    height: 31%;
+    cursor: pointer; }
 
 .player-2 {
   display: none; }

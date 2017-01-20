@@ -1,7 +1,7 @@
 .main-window
   .header
     .player-1
-      .score 4
+      .score 01
       .player Player 1
     .player-2
       .score 0
@@ -17,10 +17,12 @@
         p.single-player Single Player
         p.two-player Two Players
     .symbol-select
-      p.prompt Would you like to be X or O?
+      p.prompt
       .options
         .symbol-x X
         .symbol-O O
       .go-back
         .tri
     canvas#canvas
+    ul.boxes
+      li.box
