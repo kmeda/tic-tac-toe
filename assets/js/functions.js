@@ -3,7 +3,7 @@
 var player1Symbol = '';
 var player2Symbol = '';
 var gameInPlay = false;
-
+var numPositionsFilled = 0;
 var secondPlayer = function(){
   if ($('.gameMode').text === 'Single Player') {
     return false;
@@ -65,7 +65,25 @@ var randomizePlayer = function(){
 var turn = randomizePlayer();
 console.log('turn: '+turn);
 
+var checkWin = function(symbol){
+  var currentBoard = boardPositions;
+  var wins = winCombos;
+  var winningCombo = [];
+  var winner = wins.some(function(combination){
+    var winning = true;
+    for (var i = 0; i < combination.length; i++) {
+      if (currentBoard[combination[i]] !== symbol) {
+        winning = false;
 
+      }
+    }
+    if (winning) {
+      winningCombo = combination;
+    }
+    return winning;
+  });
+  return [winner, winningCombo];
+}
 // Game start - Show Main Screen Game Options // Go with the flow baby
 var initializeGame = function(){
 
@@ -117,14 +135,55 @@ var initializeGame = function(){
                 if (box.text() === '' && gameInPlay && (turn === 1 || (turn === 2 && secondPlayer))) {
                   box.text(symbol);
 
+                  //updateboard and switch turns // check winner/draw //here
+
+                  //update boardPosition
                   var position = ($(this).attr('class'));
                       position = position[position.length - 1];
                   boardPositions[position] = symbol;
-                  console.log(position);
+                  console.log('numPositionsFilled: '+numPositionsFilled);
+                  console.log('current position: '+position);
                   console.log(boardPositions);
+                  //Check Win combo
+                  numPositionsFilled += 1
+                  if (gameInPlay) {
+                    if (checkWin(symbol)[0]) {
+                      //updateScore here
+                      if (secondPlayer) {
+                        // display win message for that turn player
+                      } else {
+                        //if turn === 1 show winmessage or lose maessage (computer wins case)
+                      }
+                      gameInPlay = false;
+                      //show winning combination
+                      //hide player prompts
+                      //reset game
+                    }
+                    // draw
+                    else if (numPositionsFilled >= 9) {
+                      gameInPlay = false;
+                      //hide player prompts
+                      //show draw message
+                      //randomize turn
+                      //reset game
+                    } else {
+                      if (turn === 1) { //switch turns
+                        //prompt player 2
+                        turn = 2;
+                        if (!secondPlayer) {
+                          //computer turn
+                        }
+                      }else if (turn === 2) {
+                        //prompt player 1
+                        turn = 1
+                      }
+                    }
+
+                  }
 
 
-                  //updateboard and switch turns // check winner/draw //here
+
+
                 }
 
               });
