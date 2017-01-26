@@ -1,9 +1,31 @@
 @import 'https://fonts.googleapis.com/css?family=Fira+Sans';
 @import url("https://fonts.googleapis.com/css?family=Courgette");
+.wrapper {
+  position: absolute;
+  width: 400px;
+  height: 390px; }
+  .wrapper .player1Prompt, .wrapper .player2Prompt {
+    width: 130px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 1.1em;
+    font-family: Courgette;
+    padding-top: 10px;
+    color: yellow; }
+  .wrapper .player1Prompt {
+    margin-top: -20px;
+    margin-left: 10px;
+    float: left; }
+  .wrapper .player2Prompt {
+    margin-top: -20px;
+    margin-right: 10px;
+    float: right; }
+
 .main-window {
   width: 400px;
   height: 390px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   -webkit-border-radius: 10px;
           border-radius: 10px;
   -webkit-box-shadow: inset -1px 1px 10px rgba(0, 0, 0, 0.5), inset 1px -1px 10px rgba(0, 0, 0, 0.5), 1px 10px 5px rgba(0, 0, 0, 0.5), 4px 3px 8px rgba(0, 0, 0, 0.5), 5px 10px 10px rgba(0, 0, 0, 0.2), -5px 10px 10px rgba(0, 0, 0, 0.4);
@@ -44,8 +66,7 @@
   background: rgba(0, 0, 0, 0.1) radial-gradient(center, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9));
   color: white;
   font-family: Courgette;
-  font-weight: bold;
-  z-index: 1; }
+  font-weight: bold; }
   .board-container .game-options, .board-container .symbol-select, .board-container #canvas {
     width: 350px;
     height: 350px;
@@ -219,7 +240,7 @@
     font-size: 5em;
     font-family: chalkboard; }
 
-.player-2 {
+.computer {
   display: none; }
 
 body {
