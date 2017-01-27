@@ -7,7 +7,7 @@
   .wrapper .player1Prompt, .wrapper .player2Prompt {
     width: 130px;
     height: 40px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.5);
     text-align: center;
     font-size: 1.1em;
     font-family: Courgette;
@@ -25,7 +25,7 @@
 .main-window {
   width: 400px;
   height: 390px;
-  background: rgba(255, 255, 255, 0.9);
+  background: white;
   -webkit-border-radius: 10px;
           border-radius: 10px;
   -webkit-box-shadow: inset -1px 1px 10px rgba(0, 0, 0, 0.5), inset 1px -1px 10px rgba(0, 0, 0, 0.5), 1px 10px 5px rgba(0, 0, 0, 0.5), 4px 3px 8px rgba(0, 0, 0, 0.5), 5px 10px 10px rgba(0, 0, 0, 0.2), -5px 10px 10px rgba(0, 0, 0, 0.4);
@@ -81,11 +81,12 @@
   .game-options .options, .symbol-select .options {
     display: inline-block;
     font-size: 1em;
-    margin: auto; }
+    margin: auto;
+    color: #01b8be; }
     .game-options .options .single-player, .game-options .options .two-player, .game-options .options .symbol-x, .game-options .options .symbol-O, .symbol-select .options .single-player, .symbol-select .options .two-player, .symbol-select .options .symbol-x, .symbol-select .options .symbol-O {
       cursor: pointer; }
       .game-options .options .single-player:hover, .game-options .options .two-player:hover, .game-options .options .symbol-x:hover, .game-options .options .symbol-O:hover, .symbol-select .options .single-player:hover, .symbol-select .options .two-player:hover, .symbol-select .options .symbol-x:hover, .symbol-select .options .symbol-O:hover {
-        color: #05d2ff; }
+        color: #00fff7; }
     .game-options .options .symbol-x, .game-options .options .symbol-O, .symbol-select .options .symbol-x, .symbol-select .options .symbol-O {
       font-size: 2.5em; }
     .game-options .options .single-player, .symbol-select .options .single-player {
@@ -240,8 +241,21 @@
     font-size: 5em;
     font-family: chalkboard; }
 
-.computer {
+.player-2 {
   display: none; }
+
+.win, .draw, .lose {
+  display: none;
+  width: 350px;
+  height: 350px;
+  background: black;
+  opacity: 0;
+  z-index: 9999;
+  position: absolute; }
+  .win .message p, .draw .message p, .lose .message p {
+    text-align: center;
+    margin-top: 130px;
+    font-size: 2em; }
 
 body {
   margin: 0;
