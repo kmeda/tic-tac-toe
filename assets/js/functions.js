@@ -161,7 +161,7 @@ var play = function(){
             setTimeout(function(){
               var winner = turn === 1 ? "Player 1 Wins !" : "Player 2 Wins !";
               //$('.board-container').animate({'opacity': 0.8});
-              $('.win').fadeIn().animate({'opacity': 0.9});
+              $('.win').fadeIn().animate({'opacity': 0.8});
               $('.win .message p').text(winner);
             }, 400);
           } else {
@@ -187,7 +187,7 @@ var play = function(){
           $('.player1Prompt, .player2Prompt').animate({'margin-top': '-20px'}).fadeOut();
           //show draw message
           setTimeout(function(){
-            $('.draw').fadeIn().animate({'opacity': 0.9});
+            $('.draw').fadeIn().animate({'opacity': 0.8});
             $('.draw .message p').text("It was a Draw!!")
           }, 400);
 
