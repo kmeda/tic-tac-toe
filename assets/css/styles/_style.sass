@@ -6,7 +6,7 @@
   .player1Prompt, .player2Prompt
     width: 130px
     height: 40px
-    background-color: rgba(255,255,255,0.1)
+    background-color: rgba(0,0,0,0.5)
     text-align: center
     font-size: 1.1em
     font-family: Courgette
@@ -26,7 +26,7 @@
 .main-window
   width: 400px
   height: 390px
-  background: rgba(255,255,255,0.9)
+  background: rgba(255,255,255,1)
   border-radius: 10px
   box-shadow: inset -1px 1px 10px rgba(0,0,0,0.5), inset 1px -1px 10px rgba(0,0,0,0.5), 1px 10px 5px rgba(0,0,0,0.5), 4px 3px 8px rgba(0,0,0,0.5), 5px 10px 10px rgba(0,0,0,.2), -5px 10px 10px rgba(0,0,0,.4)
   padding: 40px 0 0
@@ -85,10 +85,11 @@
     display: inline-block
     font-size: 1em
     margin: auto
+    color: rgb(1, 184, 190)
     .single-player, .two-player, .symbol-x, .symbol-O
       cursor: pointer
       &:hover
-        color: #05d2ff
+        color: rgb(0, 255, 247)
       //margin-bottom: 200px
     .symbol-x, .symbol-O
       font-size: 2.5em
@@ -163,9 +164,9 @@
       font-family: chalkboard
 
 .player-2
-  //display: none
-.computer
   display: none
+.computer
+  //display: none
 
 //Animate player move info
 
@@ -175,6 +176,16 @@
 
 
 //Messages
-.draw
-.winner
-.lost
+.win, .draw, .lose
+  display: none
+  width: 350px
+  height: 350px
+  background: black
+  opacity: 0
+  z-index: 9999
+  position: absolute
+  .message
+    p
+      text-align: center
+      margin-top: 130px
+      font-size: 2em
