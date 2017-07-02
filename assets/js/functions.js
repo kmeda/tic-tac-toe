@@ -1,4 +1,3 @@
-//Display options
 
 var player1Symbol = '';
 var player2Symbol = '';
@@ -8,6 +7,7 @@ var gameInPlay = false;
 var numPositionsFilled = 0;
 var secondPlayer = false;
 var turn;
+var currentBoard = boardPositions;
 
 var boardPositions = { 1: '', 2: '', 3: '', 4: '', 5: '', 6: '', 7: '', 8: '', 9: ''};
 var winCombos = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [7, 5, 3]];
@@ -69,7 +69,7 @@ var randomizePlayer = function(){
 
 
 var checkWin = function(symbol){
-  var currentBoard = boardPositions;
+  currentBoard = boardPositions;
   var wins = winCombos;
   var winningCombo = [];
   var winner = wins.some(function(combination){
@@ -77,7 +77,6 @@ var checkWin = function(symbol){
     for (var i = 0; i < combination.length; i++) {
       if (currentBoard[combination[i]] !== symbol) {
         winning = false;
-
       }
     }
     if (winning) {
@@ -88,22 +87,46 @@ var checkWin = function(symbol){
   return [winner, winningCombo];
 }
 
-var resetGame = function(){
-  resetBoard();
-  setTimeout(function(){
-    $('.win').fadeOut().animate({'opacity': 0});
-    $('.draw').fadeOut().animate({'opacity': 0});
-    $('.boxes li').fadeOut();
-  }, 4000);
 
+$('.resetAll').click(function(){
+    gameInPlay = false;
   setTimeout(function(){
+    $('.header').hide();
+    $('.symbol-select').hide();
+    $('#canvas').hide();
+    $('.boxes').hide();
+    $('.game-options').fadeIn();
+    resetBoard();
     resetSquares();
-    $('.boxes li').fadeIn();
     numPositionsFilled = 0;
-    gameInPlay = true;
-    play();
-  }, 6000);
+    player1Symbol = '';
+    player2Symbol = '';
+    player1Score = 0;
+    player2Score = 0;
+    turn = 0;
 
+    $('.score-1, .score-2').text(0);
+    $('.player1Prompt, .player2Prompt').animate({'margin-top': '-20px'}, 500).fadeOut();
+    //secondPlayer = false;
+  }, 2000);
+
+
+
+});
+
+var resetGame = function(){
+    resetBoard();
+    setTimeout(function(){
+      gameInPlay = true;
+      $('.win').fadeOut().animate({'opacity': 0});
+      $('.draw').fadeOut().animate({'opacity': 0});
+      $('.boxes li').fadeOut();
+      resetSquares();
+      $('.boxes li').fadeIn();
+      numPositionsFilled = 0;
+      turn = 0;
+      play();
+    }, 4000);
 };
 
 var play = function(){
@@ -131,100 +154,85 @@ var play = function(){
     }
   }, 500);
 
-  $('.boxes li').click(function(){
+  $('.boxes li').click(function(e){
+    e.stopPropagation();
     var symbol = turn === 1 ? player1Symbol : player2Symbol;
     var box = $(this).children('i').children('span');
+    
     if (box.text() === '' && gameInPlay && (turn === 1 || (turn === 2 && secondPlayer))) {
       box.text(symbol);
 
-      //updateboard and switch turns // check winner/draw //here
-
-      //update boardPosition
-      numPositionsFilled += 1
+      numPositionsFilled += 1  //update boardPosition
       var position = ($(this).attr('class'));
           position = position[position.length - 1];
       boardPositions[position] = symbol;
-      console.log('numPositionsFilled: '+numPositionsFilled);
-      console.log('current position: '+position);
-      console.log(boardPositions);
 
-      //Check Win combo
-      if (gameInPlay) {
+      if (gameInPlay) {  //Check Win combo
         if (checkWin(symbol)[0]) {
-          //updateScore here
+
           turn === 1 ? player1Score +=1 : player2Score += 1;
           var currentScore = turn === 1 ? player1Score : player2Score;
           console.log(turn + " : " +currentScore);
           $('.score-'+ turn).text(currentScore);
-          if (secondPlayer) {
-            // display win message for that turn player
+
+            if (secondPlayer) {
+
+              setTimeout(function(){
+                var winner = turn === 1 ? "Player 1 Wins !" : "Player 2 Wins !";
+                //$('.board-container').animate({'opacity': 0.8});
+                $('.win').fadeIn().animate({'opacity': 0.8});
+                $('.win .message p').text(winner);
+              }, 400);
+            } else {
+              //if turn === 1 show winmessage or lose message (computer wins case)
+
+            }
+            gameInPlay = false;
+            //show winning combination
+            //hide player prompts
+            $('.player1Prompt, .player2Prompt').animate({'margin-top': '-20px'}).fadeOut();
+
             setTimeout(function(){
-              var winner = turn === 1 ? "Player 1 Wins !" : "Player 2 Wins !";
-              //$('.board-container').animate({'opacity': 0.8});
-              $('.win').fadeIn().animate({'opacity': 0.8});
-              $('.win .message p').text(winner);
-            }, 400);
+                $('.win').fadeOut(400);
+            }, 6000);
+          resetGame();
+        }
+            else if (numPositionsFilled >= 9) {
+              gameInPlay = false;
+              $('.player1Prompt, .player2Prompt').animate({'margin-top': '-20px'}).fadeOut();
+              setTimeout(function(){
+                $('.draw').fadeIn().animate({'opacity': 0.8});
+                $('.draw .message p').text("It was a Draw!!")
+              }, 400);
+              resetGame();
+
           } else {
-            //if turn === 1 show winmessage or lose message (computer wins case)
+                if (turn === 1) { //switch turns
+                  if (secondPlayer()) {
+                    $('.player2Prompt').text('Go Player 2!');
+                  }
+                  else {
+                    $('.player2Prompt').text('Computer turn!');
+                  }
+                  $('.player1Prompt').animate({'margin-top': '-20px'}, 500);
+                  $('.player2Prompt').fadeIn().animate({'margin-top': '-60px'}, 500);
 
-          }
-          gameInPlay = false;
-          //show winning combination
-          //hide player prompts
-          $('.player1Prompt, .player2Prompt').animate({'margin-top': '-20px'}).fadeOut();
-
-          setTimeout(function(){
-              $('.win').fadeOut(400);
-          }, 6000);
-
-          //reset game
-          resetGame();
-        }
-        // draw
-        else if (numPositionsFilled >= 9) {
-          gameInPlay = false;
-          //hide player prompts
-          $('.player1Prompt, .player2Prompt').animate({'margin-top': '-20px'}).fadeOut();
-          //show draw message
-          setTimeout(function(){
-            $('.draw').fadeIn().animate({'opacity': 0.8});
-            $('.draw .message p').text("It was a Draw!!")
-          }, 400);
-
-
-          //randomize turn
-          //reset game
-          resetGame();
-        } else {
-          if (turn === 1) { //switch turns
-            //prompt player 2
-            if (secondPlayer()) {
-              $('.player2Prompt').text('Go Player 2!');
-            }
-            else {
-              $('.player2Prompt').text('Computer turn!');
-            }
-            $('.player1Prompt').animate({'margin-top': '-20px'}, 500);
-            $('.player2Prompt').fadeIn().animate({'margin-top': '-60px'}, 500);
-
-            turn = 2;
-            if (!secondPlayer) {
-              //computer turn
-            }
-          }else if (turn === 2) {
-            //prompt player 1
-
-            if (secondPlayer()) {
-              $('.player1Prompt').text('Go Player 1!');
-            }
-            else {
-              $('.player1Prompt').text('Your turn!');
-            }
-            $('.player2Prompt').animate({'margin-top': '-20px'}, 500);
-            $('.player1Prompt').fadeIn().animate({'margin-top': '-60px'}, 500);
-            turn = 1;
-          }
-        }
+                  turn = 2;
+                  if (!secondPlayer) {
+                    //computer turn
+                  }
+                }else if (turn === 2) {
+                  if (secondPlayer()) {
+                    $('.player1Prompt').text('Go Player 1!');
+                  }
+                  else {
+                    $('.player1Prompt').text('Your turn!');
+                  }
+                  $('.player2Prompt').animate({'margin-top': '-20px'}, 500);
+                  $('.player1Prompt').fadeIn().animate({'margin-top': '-60px'}, 500);
+                  turn = 1;
+                }
+              }
       }
     }
   });
@@ -244,7 +252,8 @@ var initializeGame = function(){
   $('.game-options').fadeIn(); //***
 
     // Show Symbol selection screen
-    $('.gameMode').off().click(function(){
+    $('.gameMode').click(function(e){
+      e.stopPropagation();
       $('.game-options').hide();
       $('.symbol-select').fadeIn(); //***
 
@@ -262,8 +271,6 @@ var initializeGame = function(){
       }
       secondPlayer();
       console.log(secondPlayer());
-
-
       // Back button to go back to main screen
       $('.go-back').click(function(e) {
         e.stopPropagation();
@@ -273,7 +280,7 @@ var initializeGame = function(){
 
         // Symbol selection and assignment to players
 
-      $('.symbol-x, .symbol-O').off().click(function(e){
+      $('.symbol-x, .symbol-O').click(function(e){
         e.stopPropagation();
         console.log('I am recrusive!');
         player1Symbol = $(this).text();
@@ -288,10 +295,9 @@ var initializeGame = function(){
         $('.boxes').fadeIn(500); //***
         $('.header').fadeIn(300); //***
         resetSquares(); //***
-        //$('.player1Prompt, .player2Prompt').show();
 
 
-          //Game start
+        //Game start
           play();
     });
   });
@@ -300,25 +306,7 @@ var initializeGame = function(){
 
 }
 
-$('.resetAll').click(function(){
-  $('.header').hide();
-  $('.symbol-select').hide();
-  $('#canvas').hide();
-  $('.boxes').hide();
-  $('.game-options').fadeIn();
-  resetBoard();
-  resetSquares();
-  numPositionsFilled = 0;
-  player1Symbol = '';
-  player2Symbol = '';
-  player1Score = 0;
-  player2Score = 0;
-  $('.score-1, .score-2').text(0);
 
-  $('.player1Prompt, .player2Prompt').animate({'margin-top': '-20px'}, 500).fadeOut();
-  //secondPlayer = false;
-
-});
 
 
 //End of Line
@@ -329,19 +317,3 @@ $(document).ready(function(){
 initializeGame();
 
 });
-
-
-/*
-
-$('.square').click(function(){
-    for (var i = 1; i <= 9; i++) {
-      if ($('.box'+i).text() === '') {
-        $(('.box'+i)).text('O').addClass('symbol-player-1');
-    }
-
-    }
-});
-
-
-
-*/

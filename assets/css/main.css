@@ -157,6 +157,7 @@
     margin: 0 5px 0 2px;
     width: 31%;
     height: 31%;
+    background: rgba(159, 12, 12, 0);
     cursor: pointer;
     font-size: 5em;
     font-family: chalkboard; }
@@ -167,6 +168,7 @@
     margin: 0 5px 0 2px;
     width: 31%;
     height: 31%;
+    background: rgba(159, 12, 12, 0);
     cursor: pointer;
     font-size: 5em;
     font-family: chalkboard; }
@@ -177,6 +179,7 @@
     margin: 0 5px 0 2px;
     width: 31%;
     height: 31%;
+    background: rgba(159, 12, 12, 0);
     cursor: pointer;
     font-size: 5em;
     font-family: chalkboard; }
@@ -187,6 +190,7 @@
     margin: 0 5px 0 2px;
     width: 31%;
     height: 31%;
+    background: rgba(159, 12, 12, 0);
     cursor: pointer;
     font-size: 5em;
     font-family: chalkboard; }
@@ -197,6 +201,7 @@
     margin: 0 5px 0 2px;
     width: 31%;
     height: 31%;
+    background: rgba(159, 12, 12, 0);
     cursor: pointer;
     font-size: 5em;
     font-family: chalkboard; }
@@ -207,6 +212,7 @@
     margin: 0 5px 0 2px;
     width: 31%;
     height: 31%;
+    background: rgba(159, 12, 12, 0);
     cursor: pointer;
     font-size: 5em;
     font-family: chalkboard; }
@@ -217,6 +223,7 @@
     margin: 0 5px 0 2px;
     width: 31%;
     height: 31%;
+    background: rgba(159, 12, 12, 0);
     cursor: pointer;
     font-size: 5em;
     font-family: chalkboard; }
@@ -227,6 +234,7 @@
     margin: 0 5px 0 2px;
     width: 31%;
     height: 31%;
+    background: rgba(159, 12, 12, 0);
     cursor: pointer;
     font-size: 5em;
     font-family: chalkboard; }
@@ -237,6 +245,7 @@
     margin: 0 5px 0 2px;
     width: 31%;
     height: 31%;
+    background: rgba(159, 12, 12, 0);
     cursor: pointer;
     font-size: 5em;
     font-family: chalkboard; }
@@ -256,6 +265,15 @@
     text-align: center;
     margin-top: 130px;
     font-size: 2em; }
+
+.warning {
+  background: rgba(159, 12, 12, 0); }
+
+@-webkit-key-frames warning {
+  0% {
+    background: rgba(159, 12, 12, 0); }
+  100% {
+    background: #9f0c0c; } }
 
 body {
   margin: 0;
